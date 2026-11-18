@@ -1,0 +1,6 @@
+@extends('layouts.app')
+@section('title', 'Admin dashboard')
+@section('content')
+<div class="flex items-end justify-between"><div><p class="text-sm text-slate-400">Administration</p><h1 class="mt-1 text-3xl font-bold">Overview</h1></div><div class="flex gap-2 text-sm"><a href="{{ route('admin.tasks') }}" class="border border-white/10 px-3 py-2">Tasks</a><a href="{{ route('admin.withdrawals') }}" class="border border-white/10 px-3 py-2">Withdrawals</a></div></div>
+<div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><div class="border border-white/10 bg-slate-900/50 p-5"><p class="text-sm text-slate-400">Total users</p><p class="mt-2 text-3xl font-bold">{{ $stats['total_users'] }}</p></div><div class="border border-white/10 bg-slate-900/50 p-5"><p class="text-sm text-slate-400">Pending tasks</p><p class="mt-2 text-3xl font-bold text-amber-300">{{ $stats['pending_tasks'] }}</p></div><div class="border border-white/10 bg-slate-900/50 p-5"><p class="text-sm text-slate-400">Users with balance</p><p class="mt-2 text-3xl font-bold">{{ $stats['active_users'] }}</p></div><div class="border border-white/10 bg-slate-900/50 p-5"><p class="text-sm text-slate-400">Total paid out</p><p class="mt-2 text-3xl font-bold text-emerald-400">${{ number_format($stats['total_paid_out'], 2) }}</p></div></div>
+@endsection
