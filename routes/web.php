@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
         }
 
         return view('dashboard.index', [
+            'holdBalance' => $user->hold_balance,
             'recentTasks' => $user->tasks()->latest()->take(5)->get(),
             'recentWithdrawals' => $user->withdrawals()->latest()->take(5)->get(),
         ]);
