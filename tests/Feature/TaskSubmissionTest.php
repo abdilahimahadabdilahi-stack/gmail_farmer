@@ -58,4 +58,29 @@ class TaskSubmissionTest extends TestCase
             ])
             ->assertSessionHasErrors('account_email');
     }
+
+    public function test_admin_tasks_page_renders_task_details_and_review_actions(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $submitter = User::factory()->create();
+        $submitter->tasks()->create([
+            'account_email' => 'example@gmail.com',
+            'account_code' => 'Task completion details',
+            'reward_amount' => 0.25,
+            'status' => 'pending',
+        ]);
+
+        $this->actingAs($admin)
+            ->get('/admin/tasks')
+            ->assertOk()
+            ->assertSee('example@gmail.com')
+            ->assertSee('Task completion details')
+            ->assertSee('$0.25')
+            ->assertSee('pending')
+            ->assertSee('admin/tasks/1/approve')
+            ->assertSee('admin/tasks/1/reject')
+            ->assertSee('admin/tasks/1/edit')
+            ->assertSee('name="rejection_reason"', false)
+            ->assertDontSee('user.tasks.store');
+    }
 }
