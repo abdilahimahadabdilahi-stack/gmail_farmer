@@ -17,16 +17,18 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'proof_url' => ['required', 'url', 'max:2048', 'unique:tasks,proof_url'],
+            'account_email' => ['required', 'email', 'max:255'],
+            'account_code' => ['required', 'string', 'max:255'],
         ]);
 
         $request->user()->tasks()->create([
-            'proof_url' => $validated['proof_url'],
+            'account_email' => $validated['account_email'],
+            'account_code' => $validated['account_code'],
             'reward_amount' => 0.25,
             'status' => 'pending',
         ]);
 
-        return back()->with('success', 'Proof submitted for review.');
+        return back()->with('success', 'Task details submitted for review.');
     }
 
     public function edit(Request $request, Task $task)

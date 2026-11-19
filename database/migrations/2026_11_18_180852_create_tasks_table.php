@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('proof_url')->unique();
+            $table->string('proof_url')->nullable()->unique();
+            $table->string('account_email')->nullable();
+            $table->string('account_code')->nullable();
             $table->decimal('reward_amount', 8, 2)->default(0.25);
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('rejection_reason')->nullable();

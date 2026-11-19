@@ -9,6 +9,8 @@ class Task extends Model
     protected $fillable = [
         'user_id',
         'proof_url',
+        'account_email',
+        'account_code',
         'reward_amount',
         'status',
         'rejection_reason',
